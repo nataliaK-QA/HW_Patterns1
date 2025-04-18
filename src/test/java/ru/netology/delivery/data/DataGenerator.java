@@ -32,31 +32,29 @@ public class DataGenerator {
         return cities[new Random().nextInt(cities.length)];
     }
 
-    public static String generateName(Faker faker) {
+    public static String generateName(String locale) {
+        Faker faker = new Faker(new Locale(locale));
         return faker.name().lastName() + " " + faker.name().firstName();
     }
 
-    public static String generatePhone(Faker faker) {
-        return faker.phoneNumber().phoneNumber();
-    }
-
-
-    class Registration {
-        private static Faker faker;
-
-        private Registration() {
-        }
-
-        public static UserInfo generateUser(String locale) {
-            faker = new Faker(new Locale(locale));
-            return new UserInfo(generateCity(), generateName(faker), generatePhone(faker));
-        }
+    public static String generatePhone(String locale) {
+        Faker faker = new Faker(new Locale(locale));
+        return "+7" + faker.phoneNumber().subscriberNumber(10); // Гарантированно валидный российский номер
     }
 
     public static String generateWrongPhone(String locale) {
         Faker faker = new Faker(new Locale(locale));
-        // Генерируем заведомо невалидный номер телефона (без +7 и меньше 11 цифр)
-        return faker.numerify("##-###-##");
+        return faker.numerify("####"); // Заведомо невалидный короткий номер
+    }
+
+    public static class Registration {
+        private Registration() {
+        }
+
+        public static UserInfo generateUser(String locale) {
+            return new UserInfo(
+                    generateCity(), generateName(locale), generatePhone(locale));
+        }
     }
 
     @Value
