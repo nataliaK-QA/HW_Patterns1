@@ -39,7 +39,7 @@ public class DataGenerator {
 
     public static String generatePhone(String locale) {
         Faker faker = new Faker(new Locale(locale));
-        return "+7" + faker.phoneNumber().subscriberNumber(10); // Гарантированно валидный российский номер
+        return "+7" + faker.phoneNumber().subscriberNumber(10);
     }
 
     public static String generateWrongPhone(String locale) {
