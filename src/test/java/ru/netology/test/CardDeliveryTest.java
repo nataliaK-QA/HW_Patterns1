@@ -56,6 +56,4 @@ public class CardDeliveryTest {
                 .shouldBe(visible)
                 .shouldHave(text("Встреча успешно запланирована на  " + secondMeetingDate));
     }
-
-
 }
